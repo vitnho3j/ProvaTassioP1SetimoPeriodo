@@ -5,9 +5,9 @@ const_Thirty = 30
 const_All = 40
 
 class Game:
-    def __init__(self, player1Name, player2Name):
-        self.__player1Name = player1Name
-        self.__player2Name = player2Name
+    def __init__(self, player1, player2):
+        self.__player1Name = player1
+        self.__player2Name = player2
         self.__player1points = 0
         self.__player2points = 0
         
@@ -16,12 +16,13 @@ class Game:
             self.Player1Score()
         else:
             self.Player2Score()
-            
+
+
     def get_Player1Name(self):
-        return self.__player1Name
+        return self.__player1Name.getName()
     
     def get_Player2Name(self):
-        return self.__player2Name
+        return self.__player2Name.getName()
     
     def get_Player1Points(self):
         return self.__player1points
@@ -133,3 +134,7 @@ class Game:
     
     def Player2Score(self):
         self.player2points +=1
+
+class Player:
+    def __init__(self, name):
+        self.name = name
