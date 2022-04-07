@@ -1,0 +1,3 @@
+PS: Todos os commits do dia da prova e de hoje estão na develop
+
+Criei uma branch release. porem não consegui dar um merge da release para a mais (pois estou usando diretamente pelo github como no dia da prova), e por isso atualizei manualmente na main
