@@ -1,8 +1,20 @@
 # -*- coding: utf-8 -*-
+from unittest import result
+
+
 const_Love = 1
 const_Fifteen = 2 
 const_Thirty = 3
 const_All = 4
+
+const_Advantage = "Advantage"
+const_Win = "Win For"
+
+
+
+result = ""
+
+
 
 class Player:
     def __init__(self, name):
@@ -12,11 +24,17 @@ class Player:
         return self.__name
 
 class Game:
+
     def __init__(self, player1, player2):
         self.__player1Name = player1
         self.__player2Name = player2
         self.__player1points = 0
         self.__player2points = 0
+        self.__result = ""
+        self.__Player1result = ""
+        self.__Player2result = ""
+
+
         
     def won_point(self, playerName):
         if playerName == self.player1Name:
@@ -65,81 +83,79 @@ class Game:
 
 
     def result_tying_score(self):
-        result = ""
         if (self.get_Player1Points()==const_Love):
-            result = self.__get_Love()
+            self.__result = self.get_Love()
         if (self.get_Player1Points()==const_Fifteen):
-            result = self.__get_Fifteen()
+            self.__result = self.get_Fifteen()
         if (self.get_Player1Points()==const_Thirty):
-            result = self.__get_Thirty()
-        result += self.get_All()
-        return result
+            self.__result = self.get_Thirty()
+        self.__result += self.get_All()
+        return self.__result
+
 
 
     def result_Player1_Winning(self):
-        Player1result = ""
-        Player2result = ""
         if (self.get_Player1Points()==1):
-            Player1result = self.get_Fifteen()
+            self.__Player1result = self.get_Fifteen()
         if (self.get_Player1Points()==2):
-            Player1result = self.get_Thirty()
+            self.__Player1result = self.get_Thirty()
         if (self.get_Player1Points()==3):
-            Player1result = self.get_Forty()
-        Player2result = self.get_Love()
-        result = Player1result + "-" + Player2result
-        return result
-        
+            self.__Player1result = self.get_Forty()
+        self.__Player2result = self.get_Love()
+        self.__result = self.__Player1result + "-" + self.__Player2result
+        return self.__result
+
+
+
     def result_Player2_Winning(self):
-        Player1result = ""
-        Player2result = ""
         if (self.get_Player2Points()==1):
-            Player2result = self.get_Fifteen()
+            self.__Player2result = self.get_Fifteen()
         if (self.get_Player2Points()==2):
-            Player2result = self.get_Thirty()
+            self.__Player2result = self.get_Thirty()
         if (self.get_Player2Points()==3):
-            Player2result = self.get_Forty()
+            self.__Player2result = self.get_Forty()
             
-        Player1result = self.get_Love()
-        result = Player1result + "-" + Player2result
-        return result
+        self.__Player1result = self.get_Love()
+        self.__result = self.__Player1result + "-" + self.__Player2result
+        return self.__result
+
+
 
     def result_Player1_Won(self):
-        Player1result = ""
-        Player2result = ""
         if (self.get_Player1Points()==2):
-            Player1result=self.get_Thirty()
+            self.__Player1result=self.get_Thirty()
         if (self.get_Player1Points()==3):
-            Player1result=self.get_Forty()
+            self.__Player1result=self.get_Forty()
         if (self.get_Player2Points()==1):
-            Player2result=self.get_Fifteen()
+            self.__Player2result=self.get_Fifteen()
         if (self.get_Player2Points()==2):
-            Player2result=self.get_Forty()
-        result = Player1result + "-" + Player2result
-        return result
+            self.__Player2result=self.get_Forty()
+        self.__result = self.__Player1result + "-" + self.__Player2result
+        return self.__result
+
+
 
     def result_Player2_Won(self):
-        Player1result = ""
-        Player2result = ""
         if (self.get_Player2Points()==2):
-            Player2result=self.get_Thirty()
+            self.__Player2result=self.get_Thirty()
         if (self.get_Player2Points()==3):
-            Player2result=self.get_Forty()
+            self.__Player2result=self.get_Forty()
         if (self.get_Player1Points()==1):
-            Player1result=self.get_Fifteen()
+            self.__Player1result=self.get_Fifteen()
         if (self.get_Player2Points()==2):
-            Player1result=self.get_Thirty()
-        result = Player1result + "-" + Player2result
-        return result
+            self.__Player1result=self.get_Thirty()
+        self.__result = self.__Player1result + "-" + self.__Player2result
+        return self.__result
 
 
-    def score(self):
+    def score_calculation(self):
 
 
         if (self.get_Player1Points() == self.get_Player2Points() and self.get_Player1Points() < 3):
             self.result_tying_score()
 
         if (self.get_Player1Points()==self.get_Player2Points() and self.get_Player1Points() > 2):
-            result = self.get_Deuce()
+            self.__result = self.get_Deuce()
         
 
 
@@ -161,23 +177,24 @@ class Game:
 
 
 
+    def result_score(self):
         
         if (self.get_Player1Points() > self.get_Player2Points() and self.get_Player2Points() >= 3):
-            result = "Advantage " + self.get_Player1Name()
+            self.__result = const_Advantage + self.get_Player1Name()
         
         if (self.get_Player2Points() > self.get_Player1Points() and self.get_Player1Points() >= 3):
-            result = "Advantage " + self.get_Player2Name()
+            self.__result = const_Advantage + self.get_Player2Name()
         
         if (self.get_Player1Points()>=4 and self.get_Player2Points()>=0 and (self.get_Player1Points()-self.get_Player2Points())>=2):
-            result = "Win for " + self.get_Player1Name()
+            self.__result = const_Win + self.get_Player1Name()
 
         if (self.get_Player2Points()>=4 and self.get_Player1Points()>=0 and (self.get_Player2Points()-self.get_Player1Points())>=2):
-            result = "Win for " + self.get_Player2Name()
+            self.__result = const_Win + self.get_Player2Name()
 
-        return result
+        return self.__result
 
 
-        
+
     
     def SetPlayer1Score(self, number):
         for i in range(number):
